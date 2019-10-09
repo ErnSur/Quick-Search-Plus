@@ -14,6 +14,7 @@ namespace Unity.QuickSearch
         public static bool closeWindowByDefault { get; private set; }
         public static bool trackSelection { get; private set; }
         public static bool fetchPreview { get; private set; }
+        public static float rowHeight { get; private set; }
 
         static SearchSettings()
         {
@@ -21,6 +22,7 @@ namespace Unity.QuickSearch
             closeWindowByDefault = EditorPrefs.GetBool($"{k_KeyPrefix}.{nameof(closeWindowByDefault)}", true);
             trackSelection = EditorPrefs.GetBool($"{k_KeyPrefix}.{nameof(trackSelection)}", true);
             fetchPreview = EditorPrefs.GetBool($"{k_KeyPrefix}.{nameof(fetchPreview)}", true);
+            rowHeight = EditorPrefs.GetFloat($"{k_KeyPrefix}.{nameof(rowHeight)}", 32);
         }
 
         private static void Save()
@@ -29,6 +31,7 @@ namespace Unity.QuickSearch
             EditorPrefs.SetBool($"{k_KeyPrefix}.{nameof(closeWindowByDefault)}", closeWindowByDefault);
             EditorPrefs.SetBool($"{k_KeyPrefix}.{nameof(trackSelection)}", trackSelection);
             EditorPrefs.SetBool($"{k_KeyPrefix}.{nameof(fetchPreview)}", fetchPreview);
+            EditorPrefs.SetFloat($"{k_KeyPrefix}.{nameof(rowHeight)}", rowHeight);
         }
 
         [UsedImplicitly, SettingsProvider]
@@ -51,6 +54,9 @@ namespace Unity.QuickSearch
                                 trackSelection = EditorGUILayout.Toggle(Styles.trackSelectionContent, trackSelection);
                                 fetchPreview = EditorGUILayout.Toggle(Styles.fetchPreviewContent, fetchPreview);
                                 useDockableWindow = EditorGUILayout.Toggle(Styles.useDockableWindowContent, useDockableWindow);
+
+                                rowHeight = EditorGUILayout.FloatField(Styles.rowHeightContent, rowHeight);
+
                                 if (useDockableWindow)
                                     closeWindowByDefault = EditorGUILayout.Toggle(Styles.closeWindowByDefaultContent, closeWindowByDefault);
                                 GUILayout.Space(10);
@@ -208,6 +214,7 @@ namespace Unity.QuickSearch
             public static GUIContent decreasePriorityContent = new GUIContent("\u2193", "Decrease the provider's priority");
 
             public static GUIContent useDockableWindowContent = new GUIContent("Use a dockable window (instead of a modal popup window, not recommended)");
+            public static GUIContent rowHeightContent = new GUIContent("Row height");
             public static GUIContent closeWindowByDefaultContent = new GUIContent("Automatically close the window when an action is executed");
             public static GUIContent useFilePathIndexerContent = new GUIContent(
                 "Enable fast indexing of file system entries under your project (experimental)",

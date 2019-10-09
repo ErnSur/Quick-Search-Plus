@@ -227,10 +227,10 @@ namespace Unity.QuickSearch
 
             private const int itemRowPadding = 4;
             public const float actionButtonSize = 24f;
-            public const float itemPreviewSize = 32f;
+            public static float itemPreviewSize => SearchSettings.rowHeight;//32f;
             public const float itemRowSpacing = 30.0f;
-            private const int actionButtonMargin = (int)((itemRowHeight - actionButtonSize) / 2f);
-            public const float itemRowHeight = itemPreviewSize + itemRowPadding * 2f;
+            private static int actionButtonMargin => (int)((itemRowHeight - actionButtonSize) / 2f);
+            public static float itemRowHeight => itemPreviewSize + itemRowPadding * 2f;
             public const float statusOffset = 20;
 
             private static bool isDarkTheme => EditorGUIUtility.isProSkin;
@@ -1356,6 +1356,7 @@ namespace Unity.QuickSearch
                     var maxWidth = position.width - Styles.actionButtonSize - Styles.itemPreviewSize - Styles.itemRowSpacing;
                     var textMaxWidthLayoutOption = GUILayout.MaxWidth(maxWidth);
                     GUILayout.Label(item.provider.fetchLabel(item, context), m_SelectedIndex == index ? Styles.selectedItemLabel : Styles.itemLabel, textMaxWidthLayoutOption);
+                    if(Styles.itemPreviewSize >= 32)
                     GUILayout.Label(FormatDescription(item, context, maxWidth), m_SelectedIndex == index ? Styles.selectedItemDescription : Styles.itemDescription, textMaxWidthLayoutOption);
                 }
 
