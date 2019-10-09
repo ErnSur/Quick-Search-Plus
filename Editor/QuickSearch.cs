@@ -223,14 +223,33 @@ namespace Unity.QuickSearch
                     selectedItemLabel.normal.textColor = Color.white;
                     selectedItemDescription.normal.textColor = Color.white;
                 }
+                Refresh();
+            }
+
+            public static void Refresh()
+            {
+                itemPreviewSize = SearchSettings.rowHeight;
+                itemRowHeight = itemPreviewSize + itemRowPadding * 2f;
+                actionButtonMargin = (int)((itemRowHeight - actionButtonSize) / 2f);
+
+                preview = new GUIStyle
+                {
+                    name = "quick-search-item-preview",
+                    fixedWidth = itemPreviewSize,
+                    fixedHeight = itemPreviewSize,
+                    alignment = TextAnchor.MiddleCenter,
+                    imagePosition = ImagePosition.ImageOnly,
+                    margin = new RectOffset(2, 2, 2, 2),
+                    padding = paddingNone
+                };
             }
 
             private const int itemRowPadding = 4;
             public const float actionButtonSize = 24f;
-            public static float itemPreviewSize => SearchSettings.rowHeight;//32f;
+            public static float itemPreviewSize;
             public const float itemRowSpacing = 30.0f;
-            private static int actionButtonMargin => (int)((itemRowHeight - actionButtonSize) / 2f);
-            public static float itemRowHeight => itemPreviewSize + itemRowPadding * 2f;
+            private static int actionButtonMargin;
+            public static float itemRowHeight;
             public const float statusOffset = 20;
 
             private static bool isDarkTheme => EditorGUIUtility.isProSkin;
@@ -320,16 +339,7 @@ namespace Unity.QuickSearch
                 #endif
             };
 
-            public static readonly GUIStyle preview = new GUIStyle
-            {
-                name = "quick-search-item-preview",
-                fixedWidth = itemPreviewSize,
-                fixedHeight = itemPreviewSize,
-                alignment = TextAnchor.MiddleCenter,
-                imagePosition = ImagePosition.ImageOnly,
-                margin = new RectOffset(2, 2, 2, 2),
-                padding = paddingNone
-            };
+            public static GUIStyle preview;
 
             public static readonly GUIStyle itemLabel = new GUIStyle(EditorStyles.label)
             {
@@ -503,6 +513,8 @@ namespace Unity.QuickSearch
         }
 
         internal static Rect ContextualActionPosition { get; private set; }
+
+        public static void RefreshStyles() => Styles.Refresh();
 
         internal SearchContext Context => m_Context;
         internal IEnumerable<SearchItem> Results => m_FilteredItems;

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEditor;
@@ -66,6 +67,7 @@ namespace Unity.QuickSearch
                             {
                                 Save();
                                 SearchService.Refresh();
+                                QuickSearchTool.RefreshStyles();
                             }
                         }
                         GUILayout.EndVertical();
