@@ -19,7 +19,7 @@
   ],
   "description": "Search multiple areas of Unity: assets, scene objects, menu items, packages, APIs, settings, etc.\n\nOn Windows simply press Alt+' to find anything or Option+' on Mac.\nLook in the shortcut manager for additional Quick Search shortcut bindings.",
   "author": {
-    "name": "Unity Technologies ApS",
+    "name": "Unity Technologies ApS, Ernest Suryś",
     "url": "https://blogs.unity3d.com/2019/04/16/introducing-unity-2019-1/#quicksearch"
   },
   "dependencies": {},
